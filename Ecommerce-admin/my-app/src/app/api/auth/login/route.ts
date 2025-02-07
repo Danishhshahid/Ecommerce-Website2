@@ -3,39 +3,52 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
-
+    
     if (email === "danishhshahid@gmail.com" && password === "1234567") {
-      const response = NextResponse.json({ message: "Login Successful!" });
+      const response = NextResponse.json(
+        { 
+          message: "Login Successful!",
+          // Add a success flag for frontend validation
+          success: true 
+        }
+      );
       
-      // Set secure, httpOnly cookie
+      // Modified cookie settings
       response.cookies.set("isLogin", "1", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        path: '/'
+        secure: true, // Always use secure in modern apps
+        sameSite: 'lax', // Changed from strict to lax for better compatibility
+        path: '/',
+        maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+        // Add domain in production
+        ...(process.env.NODE_ENV === 'production' && {
+          domain: process.env.NEXT_PUBLIC_DOMAIN || '.vercel.app'
+        })
       });
 
       return response;
     } else {
       const response = NextResponse.json(
-        { message: "Invalid email or password" }, 
+        { 
+          message: "Invalid email or password",
+          success: false
+        },
         { status: 401 }
       );
-      
-      // Clear login cookie on failed attempt
-      response.cookies.set("isLogin", "0", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        path: '/',
-        maxAge: 0 // Immediately expire the cookie
-      });
+
+      // Clear the cookie
+      response.cookies.delete("isLogin");
 
       return response;
     }
   } catch (error) {
+    console.error('Login error:', error);
     return NextResponse.json(
-      { message: "Authentication error", error }, 
+      { 
+        message: "Authentication error", 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        success: false
+      },
       { status: 500 }
     );
   }

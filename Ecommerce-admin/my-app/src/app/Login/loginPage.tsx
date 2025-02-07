@@ -43,10 +43,14 @@ const Signinpage = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include', // Important for cookie handling
         body: JSON.stringify(data),
       });
 
+      const responseData = await res.json();
+
       if (res.ok) {
+        // Show success toast
         toast.success("Login successful!", {
           position: "top-center",
           duration: 2000,
@@ -74,47 +78,47 @@ const Signinpage = () => {
           },
         });
 
-        // Redirect after toast animation
-        setTimeout(() => router.push("/"), 2000);
+        // Force a hard reload after delay to ensure middleware picks up the cookie
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
       } else {
-        const response = await res.json();
-        setError(response.error || "Invalid credentials. Please try again.");
+        setError(responseData.message || "Invalid credentials. Please try again.");
+        toast.error(responseData.message || "Login failed", {
+          position: "top-center",
+        });
       }
     } catch (error) {
-      setError("Something went wrong. Please try again later.",);
-      console.log(error)
+      console.error('Login error:', error);
+      setError("Something went wrong. Please try again later.");
+      toast.error("Connection error. Please try again.", {
+        position: "top-center",
+      });
     }
   };
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-50">
-      {/* Toast Component */}
       <Toaster position="top-center" richColors expand={false} />
 
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-full max-w-md px-6 py-8 space-y-8 bg-white rounded-lg shadow-md"
       >
-        {/* Nike Icon */}
         <div className="flex justify-center">
           <SiNike className="text-[70px] text-black" />
         </div>
 
-        {/* Header */}
         <div className="text-center">
           <h1 className="text-2xl font-bold">YOUR ADMIN DASHBOARD</h1>
-        
-
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="p-2 text-center text-red-500 bg-red-100 rounded-md">
             {error}
           </div>
         )}
 
-        {/* Input Fields */}
         <div className="space-y-4">
           <div>
             <Input
@@ -143,7 +147,6 @@ const Signinpage = () => {
           </div>
         </div>
 
-        {/* Options */}
         <div className="flex items-center justify-between text-sm">
           <label className="flex items-center">
             <input
@@ -158,9 +161,7 @@ const Signinpage = () => {
           </Link>
         </div>
 
-        {/* CTA Buttons */}
         <div className="flex flex-col items-center space-y-4">
-          
           <Button
             type="submit"
             disabled={isSubmitting}
