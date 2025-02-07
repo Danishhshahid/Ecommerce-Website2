@@ -1,5 +1,4 @@
 "use client";
-
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import BestsellingCard from "./ProductCard";
 import { urlFor } from "@/sanity/lib/image";
@@ -21,15 +20,19 @@ const Bestofall = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [api, setApi] = useState<CarouselApi | undefined>(); // Carousel API instance
   const [selectedIndex, setSelectedIndex] = useState(0); // Active slide index
+  const [isLoading, setIsLoading] = useState(true); // Loading state for products
+  const [hasError, setHasError] = useState(false); // Error state
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         const fetchedProduct: ProductType[] = await client.fetch(bestofall);
         setProducts(fetchedProduct);
-        // console.log(fetchedProduct);
       } catch (error) {
+        setHasError(true);
         console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchProducts();
@@ -54,6 +57,14 @@ const Bestofall = () => {
       setSelectedIndex(api.selectedScrollSnap()); // Update active slide index
     });
   }, [api]);
+
+  if (isLoading) {
+    return <div className="text-center">Loading products...</div>;
+  }
+
+  if (hasError) {
+    return <div className="text-center text-red-500">Error loading products. Please try again later.</div>;
+  }
 
   return (
     <div className="w-full h-auto flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-12">
@@ -115,23 +126,22 @@ const Bestofall = () => {
           <button
             key={index}
             onClick={() => api?.scrollTo(index)} // Scroll to the selected slide
-            className={`w-2 h-2 rounded-full transition-colors ${
-              selectedIndex === index ? "bg-black" : "bg-gray-300"
-            }`}
+            className={`w-2 h-2 rounded-full transition-colors ${selectedIndex === index ? "bg-black" : "bg-gray-300"}`}
           />
         ))}
       </div>
-          {/* Toast Notifications */}
-  <ToastContainer
-    position="bottom-right"
-    autoClose={1000}
-    hideProgressBar={false}
-    closeOnClick
-    draggable={false}
-    pauseOnHover={false}
-    theme="light"
-    transition={Flip}
-  />
+
+      {/* Toast Notifications */}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        closeOnClick
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+        transition={Flip}
+      />
     </div>
   );
 };

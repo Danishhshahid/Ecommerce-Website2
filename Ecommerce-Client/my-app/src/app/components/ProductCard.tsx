@@ -74,6 +74,8 @@ const BestsellingCard = ({
             width={320}
             height={250}
             className="object-cover w-full h-full"
+            priority 
+            placeholder="blur"
           />
         </div>
 

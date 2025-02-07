@@ -1,7 +1,7 @@
+import React, { memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import React from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { CiMobile3 } from "react-icons/ci";
 import { LuMessageSquareQuote } from "react-icons/lu";
@@ -10,30 +10,30 @@ import { IoLocation } from "react-icons/io5";
 
 const Gethelppage = () => {
   return (
-    <div className="w-full min-h-screen bg-gray-50 flex flex-col items-center px-4 lg:px-8">
-      <div className="w-full max-w-7xl flex flex-col gap-8 py-8">
-        {/* Header Section */}
-        <div className="w-full flex flex-col justify-center items-center gap-5">
-          <h1 className="text-3xl font-bold">GET HELP</h1>
+    <div className="w-full min-h-screen bg-gray-50 flex flex-col items-center px-3 sm:px-4 lg:px-8">
+      <div className="w-full max-w-7xl flex flex-col gap-6 sm:gap-8 py-6 sm:py-8">
+        {/* Header Section - Optimized for mobile */}
+        <div className="w-full flex flex-col justify-center items-center gap-4 sm:gap-5">
+          <h1 className="text-2xl sm:text-3xl font-bold">GET HELP</h1>
           <Input
             placeholder="How can we help you?"
-            className="w-full max-w-lg border rounded-lg px-4 py-2 shadow-sm"
+            className="w-full max-w-lg border rounded-lg px-3 py-2 shadow-sm"
           />
         </div>
 
-        {/* Main Content */}
-        <div className="w-full flex flex-col lg:flex-row gap-8">
+        {/* Main Content - Mobile-first layout */}
+        <div className="w-full flex flex-col lg:flex-row gap-6 sm:gap-8">
           {/* Left Section */}
-          <div className="flex-1 flex flex-col gap-6">
-            <div className="flex flex-col gap-4">
-              <h1 className="text-2xl lg:text-4xl font-bold">
+          <div className="flex-1 flex flex-col gap-5 sm:gap-6">
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold leading-tight">
                 WHAT PAYMENT OPTIONS CAN I USE ON NIKE ORDERS?
               </h1>
-              <p className="text-gray-700">
+              <p className="text-gray-700 text-sm sm:text-base">
                 We want to make buying your favorite Nike shoes and gear online
                 fast and easy. We accept the following payment options:
               </p>
-              <ul className="ml-4 list-disc text-gray-600">
+              <ul className="ml-4 list-disc text-gray-600 text-sm sm:text-base space-y-2">
                 <li>
                   Visa, Mastercard, Diners Club, Discover, American Express,
                   Visa Electron, Maestro
@@ -44,7 +44,7 @@ const Gethelppage = () => {
                 </li>
                 <li>Apple Pay</li>
               </ul>
-              <p className="text-gray-700">
+              <p className="text-gray-700 text-sm sm:text-base">
                 <Link
                   href="/"
                   className="underline font-semibold text-blue-600"
@@ -55,23 +55,23 @@ const Gethelppage = () => {
                 faster checkout. If you&#39;re not already a Member, join us
                 today.
               </p>
-              <div className="flex gap-4 mt-4">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
                 <Link href="/signup">
-                  <Button className="rounded-xl px-4 py-2 bg-blue-600 text-white">
+                  <Button className="rounded-xl px-4 py-2 bg-blue-600 text-white text-sm sm:text-base">
                     JOIN US
                   </Button>
                 </Link>
                 <Link href="/DynamicRoutes/allproducts">
-                  <Button className="rounded-xl px-4 py-2 bg-blue-600 text-white">
+                  <Button className="rounded-xl px-4 py-2 bg-blue-600 text-white text-sm sm:text-base">
                     SHOP NIKE
                   </Button>
                 </Link>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold">FAQs</h2>
-              <div className="text-gray-700">
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <h2 className="text-lg sm:text-xl font-semibold">FAQs</h2>
+              <div className="text-gray-700 text-sm sm:text-base space-y-3">
                 <p className="font-semibold">
                   Does my card need international purchases enabled?
                 </p>
@@ -109,48 +109,48 @@ const Gethelppage = () => {
                   to use Safari to use Apple Pay on Nike.com.
                 </p>
               </div>
-              <p className="font-semibold">Was this answer helpful?</p>
-              <div className="flex items-center gap-3 text-2xl text-gray-500">
+              <p className="font-semibold text-sm sm:text-base">Was this answer helpful?</p>
+              <div className="flex items-center gap-3 text-xl sm:text-2xl text-gray-500">
                 <FaThumbsDown className="cursor-pointer hover:text-red-500" />
                 <FaThumbsUp className="cursor-pointer hover:text-green-500" />
               </div>
             </div>
           </div>
 
-          {/* Right Section */}
-          <div className="w-full lg:w-[30%] border-l-2 pl-6">
-            <div className="flex flex-col gap-8">
+          {/* Right Section - Mobile optimized */}
+          <div className="w-full lg:w-[30%] border-t-2 lg:border-t-0 lg:border-l-2 pt-4 lg:pt-0 lg:pl-6">
+            <div className="flex flex-col gap-6 sm:gap-8">
               {/* Contact Us */}
-              <div className="flex flex-col items-center gap-4">
-                <h1 className="text-2xl font-bold">CONTACT US</h1>
-                <CiMobile3 className="text-[80px] text-gray-500" />
-                <p className="font-semibold text-lg">0008009190566</p>
-                <p className="text-gray-700">
+              <div className="flex flex-col items-center gap-3 sm:gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold">CONTACT US</h2>
+                <CiMobile3 className="text-[60px] sm:text-[80px] text-gray-500" />
+                <p className="font-semibold text-base sm:text-lg">0008009190566</p>
+                <p className="text-gray-700 text-sm sm:text-base text-center">
                   Products & Orders: 24 hours a day, 7 days a week
                 </p>
-                <p className="text-gray-700">
+                <p className="text-gray-700 text-sm sm:text-base text-center">
                   Company Info & Enquiries: 07:30 - 16:30, Monday - Friday
                 </p>
               </div>
 
               {/* Other Methods */}
-              <div className="flex flex-col items-center gap-4">
-                <LuMessageSquareQuote className="text-[80px] text-gray-500" />
-                <p className="font-semibold text-lg">24 hours a day</p>
-                <p className="text-gray-700">7 days a week</p>
+              <div className="flex flex-col items-center gap-3 sm:gap-4">
+                <LuMessageSquareQuote className="text-[60px] sm:text-[80px] text-gray-500" />
+                <p className="font-semibold text-base sm:text-lg">24 hours a day</p>
+                <p className="text-gray-700 text-sm sm:text-base">7 days a week</p>
               </div>
 
-              <div className="flex flex-col items-center gap-4">
-                <IoMdMail className="text-[80px] text-gray-500" />
-                <p className="font-semibold text-lg">
+              <div className="flex flex-col items-center gap-3 sm:gap-4">
+                <IoMdMail className="text-[60px] sm:text-[80px] text-gray-500" />
+                <p className="font-semibold text-base sm:text-lg text-center">
                   We&#39;ll reply within five business days
                 </p>
               </div>
 
-              <div className="flex flex-col items-center gap-4">
-                <IoLocation className="text-[80px] text-gray-500" />
-                <p className="font-semibold text-lg">STORE LOCATOR</p>
-                <p className="text-gray-700">
+              <div className="flex flex-col items-center gap-3 sm:gap-4">
+                <IoLocation className="text-[60px] sm:text-[80px] text-gray-500" />
+                <p className="font-semibold text-base sm:text-lg">STORE LOCATOR</p>
+                <p className="text-gray-700 text-sm sm:text-base text-center">
                   Find Nike retail stores near you
                 </p>
               </div>

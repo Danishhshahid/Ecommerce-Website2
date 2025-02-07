@@ -238,6 +238,7 @@ const Checkoutpage = () => {
                       alt={item.title}
                       width={200}
                       height={200}
+                      priority
                       className="max-w-[150px] max-h-[150px] object-contain"
                     />
                   ) : (
@@ -246,6 +247,7 @@ const Checkoutpage = () => {
                       alt={item.title}
                       width={200}
                       height={200}
+                      priority
                       className="max-w-[150px] max-h-[150px] object-contain"
                     />
                   )}

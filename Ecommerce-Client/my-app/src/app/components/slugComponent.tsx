@@ -10,7 +10,7 @@ const Productdetail = () => {
       <div className="w-full h-full flex flex-col lg:flex-row justify-around px-6">
         {/* Left Div: Image */}
         <div className="w-full lg:w-[40%] h-full flex justify-center mb-6 lg:mb-0">
-          <Image src={pic} alt="pic" className="w-full h-full object-contain" />
+          <Image src={pic} alt="pic" priority className="w-full h-full object-contain" />
         </div>
 
         {/* Right Div: Product Info */}

@@ -10,9 +10,10 @@ import {
   Carousel,
   CarouselApi,
   CarouselContent,
-  CarouselItem,  
+  CarouselItem,
 } from "@/components/ui/carousel";
 import { Flip, ToastContainer } from "react-toastify";
+import Image from "next/image";
 
 const Gearup = () => {
   const [mensProducts, setMensProducts] = useState<ProductType[]>([]);
@@ -21,18 +22,23 @@ const Gearup = () => {
   const [womensApi, setWomensApi] = useState<CarouselApi | undefined>();
   const [mensSelectedIndex, setMensSelectedIndex] = useState(0);
   const [womensSelectedIndex, setWomensSelectedIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // To handle loading state
+  const [error, setError] = useState<string | null>(null); // To handle errors
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         const [mensData, womensData] = await Promise.all([
           client.fetch(mens),
-          client.fetch(womens)
+          client.fetch(womens),
         ]);
         setMensProducts(mensData);
         setWomensProducts(womensData);
       } catch (error) {
+        setError("Error fetching products. Please try again later.");
         console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchProducts();
@@ -80,13 +86,19 @@ const Gearup = () => {
     });
   }, [womensApi]);
 
+  if (isLoading) {
+    return <div>Loading...</div>; // Loading indicator
+  }
+
+  if (error) {
+    return <div>{error}</div>; // Display error message
+  }
+
   return (
     <div className="w-full h-auto flex flex-col mt-6 px-4 sm:px-6 lg:px-12 mb-6">
       <div className="w-full flex flex-col">
         <div className="w-full h-auto flex items-center mb-4">
-          <p className="text-xl sm:text-2xl lg:text-3xl font-semibold">
-            Gear Up
-          </p>
+          <p className="text-xl sm:text-2xl lg:text-3xl font-semibold">Gear Up</p>
         </div>
 
         <div className="w-full flex flex-wrap justify-between gap-6">
@@ -98,12 +110,14 @@ const Gearup = () => {
                 <div className="flex gap-6">
                   <button
                     onClick={() => mensApi?.scrollPrev()}
+                    aria-label="Previous Men's Product"
                     className="bg-gray-100 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full flex justify-center items-center text-lg sm:text-2xl hover:bg-gray-200"
                   >
                     <IoIosArrowBack />
                   </button>
                   <button
                     onClick={() => mensApi?.scrollNext()}
+                    aria-label="Next Men's Product"
                     className="bg-gray-100 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full flex justify-center items-center text-lg sm:text-2xl hover:bg-gray-200"
                   >
                     <IoIosArrowForward />
@@ -159,12 +173,14 @@ const Gearup = () => {
                 <div className="flex gap-6">
                   <button
                     onClick={() => womensApi?.scrollPrev()}
+                    aria-label="Previous Women's Product"
                     className="bg-gray-100 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full flex justify-center items-center text-lg sm:text-2xl hover:bg-gray-200"
                   >
                     <IoIosArrowBack />
                   </button>
                   <button
                     onClick={() => womensApi?.scrollNext()}
+                    aria-label="Next Women's Product"
                     className="bg-gray-100 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full flex justify-center items-center text-lg sm:text-2xl hover:bg-gray-200"
                   >
                     <IoIosArrowForward />

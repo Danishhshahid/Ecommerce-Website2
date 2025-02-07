@@ -66,6 +66,7 @@ const Cartpage = () => {
                         alt={item.title || "Product Image"} // Add fallback text
                         width={200}
                         height={200}
+                        priority
                         className="max-w-[150px] max-h-[150px] object-contain"
                       />
                     </div>

@@ -15,7 +15,16 @@ const nextConfig: NextConfig = {
           }
         ]
       }
-    ]
+    ];
+  },
+  transpilePackages: ['react-icons', 'rxjs'],
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(js|mjs)$/,
+      include: /node_modules\/(react-icons|rxjs)/,
+      type: 'javascript/auto'
+    });
+    return config;
   }
 };
 

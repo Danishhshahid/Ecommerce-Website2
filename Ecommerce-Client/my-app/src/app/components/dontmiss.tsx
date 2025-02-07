@@ -1,10 +1,11 @@
+"use client"
+import React, { memo } from "react";
 import Image from "next/image";
-import React from "react";
 import featuredpic from "./../../../public/assets/dm1.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const Dontmiss = () => {
+const Dontmiss = memo(() => {
   return (
     <div className="w-full h-auto flex items-center justify-center px-4 sm:px-6 lg:px-12">
       <div className="m-6 w-full flex flex-col">
@@ -20,9 +21,14 @@ const Dontmiss = () => {
           <div className="w-full h-auto flex justify-center">
             <Image
               src={featuredpic}
-              alt="featuredpic"
+              alt="Flight essentials collection featuring Jordan Brand apparel"
               className="w-full h-auto rounded-lg"
               priority={true}
+              quality={75}
+              loading="eager"
+              onLoad={(event) => {
+                event.currentTarget.classList.add('loaded');
+              }}
             />
           </div>
           {/* Text Section */}
@@ -31,17 +37,20 @@ const Dontmiss = () => {
               FLIGHT ESSENTIALS
             </h1>
             <p className="text-sm sm:text-base lg:text-lg">
-              Your built-to-last, all-week wears—but with style only Jordan
-              Brand can deliver.
-            </p>{" "}
-            <Link href={"/DynamicRoutes/allproducts"}>
-              <Button className="rounded-3xl px-6 py-2">Shop</Button>
+              Your built-to-last, all-week wears—but with style only Jordan Brand can deliver.
+            </p>
+            <Link href="/DynamicRoutes/allproducts" prefetch={false}>
+              <Button className="rounded-3xl px-6 py-2 transform transition-transform hover:scale-105">
+                Shop
+              </Button>
             </Link>
           </div>
         </div>
       </div>
     </div>
   );
-};
+});
+
+Dontmiss.displayName = 'Dontmiss';
 
 export default Dontmiss;
