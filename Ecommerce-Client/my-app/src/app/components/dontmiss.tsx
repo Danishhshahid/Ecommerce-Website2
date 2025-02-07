@@ -39,7 +39,7 @@ const Dontmiss = memo(() => {
             <p className="text-sm sm:text-base lg:text-lg">
               Your built-to-last, all-week wears—but with style only Jordan Brand can deliver.
             </p>
-            <Link href="/DynamicRoutes/allproducts" prefetch={false}>
+            <Link href="/allproducts" prefetch={false}>
               <Button className="rounded-3xl px-6 py-2 transform transition-transform hover:scale-105">
                 Shop
               </Button>

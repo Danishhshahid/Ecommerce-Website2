@@ -13,7 +13,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Flip, ToastContainer } from "react-toastify";
-import Image from "next/image";
 
 const Gearup = () => {
   const [mensProducts, setMensProducts] = useState<ProductType[]>([]);

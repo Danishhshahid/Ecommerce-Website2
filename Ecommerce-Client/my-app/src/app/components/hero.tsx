@@ -27,9 +27,8 @@ const Hero = () => {
           width={1400}
           height={600}
           alt="Nike Air Max Pulse Hero Image"
-          priority // Ensures fast loading
-          placeholder="blur" // Adds a blur effect before loading
-          className="rounded-xl w-full max-w-[1400px] object-cover"
+          priority 
+                    className="rounded-xl w-full max-w-[1400px] object-cover"
         />
       </div>
 

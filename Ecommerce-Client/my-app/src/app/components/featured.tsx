@@ -22,8 +22,7 @@ const Featuredpage = () => {
               width={1400}
               height={600}
               alt="Featured Image - Step into what feels good"
-              priority // Improves loading speed
-              placeholder="blur" // Adds a blur effect before loading
+              priority
               className="rounded-lg shadow-lg object-cover"
             />
           </div>
