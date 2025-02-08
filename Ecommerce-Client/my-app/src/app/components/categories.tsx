@@ -27,7 +27,7 @@ const categories = () => {
               priority
             />
             <div className="absolute bottom-6 left-6">
-              <Link href={"/mens"}>
+              <Link href={"/Men's Shoes"}>
                 {" "}
                 <Button className="bg-white rounded-3xl text-black hover:bg-transparent hover:text-black">
                   Men&#39;s
@@ -39,7 +39,7 @@ const categories = () => {
           <div className="w-full sm:w-[48%] lg:w-[32%] relative flex duration-300 hover:scale-105">
             <Image src={e2} alt="E2" className="w-full h-auto rounded-xl" />
             <div className="absolute bottom-6 left-6">
-              <Link href={"/womens"}>
+              <Link href={"/Women's Shoes"}>
                 <Button className="bg-white rounded-3xl text-black hover:bg-transparent hover:text-black">
                   Women&#39;s
                 </Button>
@@ -50,7 +50,7 @@ const categories = () => {
           <div className="w-full sm:w-[48%] lg:w-[32%] relative flex duration-300 hover:scale-105">
             <Image src={e3} alt="E3" className="w-full h-auto rounded-xl" />
             <div className="absolute bottom-6 left-6">
-              <Link href={"/kids"}>
+              <Link href={"/Kid's Shoes"}>
                 <Button className="bg-white rounded-3xl text-black hover:bg-transparent hover:text-black">
                   Kid&#39;s
                 </Button>
