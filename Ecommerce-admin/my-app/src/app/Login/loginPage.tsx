@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SiNike } from "react-icons/si";
 import * as z from "zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { Toaster, toast } from "sonner";
 
 // Zod validation schema
@@ -21,7 +21,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Signinpage = () => {
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  // const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -78,11 +78,10 @@ const Signinpage = () => {
           },
         });
 
-        // Use Next.js router for navigation after successful login
+        // Force a hard reload after delay to ensure middleware picks up the cookie
         setTimeout(() => {
-          router.push('/');
-          router.refresh(); // Refresh the page to ensure middleware picks up the cookie
-        },500);
+          window.location.href = '/';
+        }, 1000);
       } else {
         setError(responseData.message || "Invalid credentials. Please try again.");
         toast.error(responseData.message || "Login failed", {
