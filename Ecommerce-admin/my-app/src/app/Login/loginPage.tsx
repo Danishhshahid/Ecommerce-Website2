@@ -78,10 +78,11 @@ const Signinpage = () => {
           },
         });
 
-        // Force a hard reload after delay to ensure middleware picks up the cookie
+        // Use Next.js router for navigation after successful login
         setTimeout(() => {
-          window.location.href = '/';
-        }, 2000);
+          router.push('/');
+          router.refresh(); // Refresh the page to ensure middleware picks up the cookie
+        },500);
       } else {
         setError(responseData.message || "Invalid credentials. Please try again.");
         toast.error(responseData.message || "Login failed", {

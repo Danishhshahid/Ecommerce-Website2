@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { client } from '@/sanity/lib/client';
 import {
   UsersIcon,
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Sanity Queries
+  // Move queries into useMemo or declare them outside the component
   const fetchOrders = `*[_type == "order"] | order(order_date desc) {
     _id,
     _createdAt,
@@ -112,30 +112,31 @@ const AdminDashboard = () => {
     inventory
   }`;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const [ordersData, customersData, productsData] = await Promise.all([
-          client.fetch<SanityOrder[]>(fetchOrders),
-          client.fetch<SanityCustomer[]>(fetchCustomers),
-          client.fetch<SanityProduct[]>(fetchProducts)
-        ]);
-        
-        setOrders(ordersData);
-        setCustomers(customersData);
-        setProducts(productsData);
-        setError(null);
-      } catch (err) {
-        setError('Failed to fetch data from Sanity');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Create a memoized fetchData function
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const [ordersData, customersData, productsData] = await Promise.all([
+        client.fetch<SanityOrder[]>(fetchOrders),
+        client.fetch<SanityCustomer[]>(fetchCustomers),
+        client.fetch<SanityProduct[]>(fetchProducts)
+      ]);
+      
+      setOrders(ordersData);
+      setCustomers(customersData);
+      setProducts(productsData);
+      setError(null);
+    } catch (err) {
+      setError('Failed to fetch data from Sanity');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchOrders, fetchCustomers, fetchProducts]);
 
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const totalRevenue = orders.reduce((sum, order) => {
     return sum + order.item.reduce((orderSum, item) => {
@@ -201,6 +202,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Rest of your JSX remains the same */}
       {/* Mobile Hamburger Button */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -214,7 +216,7 @@ const AdminDashboard = () => {
       </button>
 
       <div className="flex text-black">
-        {/* Sidebar (you'll need to implement this separately) */}
+        {/* Sidebar */}
         <div className={`
           ${isSidebarOpen ? 'block' : 'hidden'} 
           md:block md:w-64 bg-white border-r shadow-lg fixed md:static top-0 left-0 h-full z-40
@@ -228,7 +230,7 @@ const AdminDashboard = () => {
             </div>
             
             <nav>
-              <ul  className='text-black font-semibold h-screen'>
+              <ul className='text-black font-semibold h-screen'>
                 {[
                   { tab: 'dashboard', icon: ChartBarIcon, label: 'Dashboard' },
                   { tab: 'customers', icon: UsersIcon, label: 'Customers' },
