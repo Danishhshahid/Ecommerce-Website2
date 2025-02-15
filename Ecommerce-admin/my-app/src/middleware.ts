@@ -11,11 +11,11 @@ export function middleware(request: NextRequest) {
   if (pathname === "/") {
     if (isLogin !== "1") {
       console.log('Redirecting to login page');
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/Login', request.url));
     }
   }
 
-  if (pathname === "/login") {
+  if (pathname === "/Login") {
     if (isLogin === "1") {
       console.log('Redirecting to home page');
       return NextResponse.redirect(new URL('/', request.url));
